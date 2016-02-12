@@ -1,0 +1,81 @@
+---
+title       : App to predict MPG of a car
+subtitle    : Linear model to predict MPG of a car to help car buyers
+author      : YVH
+job         : Presenter
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax, shiny, interactive, bootstrap, quiz]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Problem introduction 
+
+- People want to buy a car that has high Miles Per Gallon (MPG)
+- But ... 
+- What is affecting MPG the most?
+- Transmission? Weight? 
+- Different standards of measurements give different MPG, they cannot be compared easily
+- This app give you a general idea of what to look for 
+
+
+--- .class #id 
+
+## Data and linear model
+
+- This app uses the mtcars dataset that comes with R 
+- A study has been performed to find the parameters that influence MPG the most
+- A linear fit was performed in following way:
+```{r, eval=FALSE}
+  fit <- lm(mpg ~ factor(am) + factor(cyl) + wt, data = mtcars)
+```
+- Out of studying a lot of fits the number of cylinders and the weight of the car are the most determining factors for MPG 
+- This fit is the core of the developped shiny app.
+
+
+--- .class #id 
+
+## Shiny app 
+- https://yvestools.shinyapps.io/Shiny_app_yv/
+- Preview of app:
+```{r, opts.label = 'shiny'}
+slidifyUI(
+#  headerPanel("Predict MPG of a car using the mtcars dataset"),
+  sidebarPanel(
+    selectInput('am','Transmission',choices = list("Automatic"=0,"Manual"=1),
+                selected = 0),
+    sliderInput('cyl', 'Number of cylinders',value = 2, min = 4, max = 8, step = 2),
+    sliderInput('wt', 'Weight of the car [10^3 lb]', 0.1, min = 0.1, max = 5.5, step = 0.01),
+    submitButton('Submit')
+  ),
+  mainPanel(
+   )
+
+)
+```
+- Fill in values and press submit and the app will predict the MPG. 
+
+
+
+--- .class #id 
+
+## Example of usefulness
+- Suppose you want to buy a car with high MPG. 
+- You have the choice between car #1 (2000 lb) with 6 cylinders and automatic transmission and car #2 with manual transmission, 8 cylinders and a mass of 2100 lb.
+- Using the app: MPG car #1 has MPG of 23.20 and MPG car #2 is 21.20
+- You drive 310 miles per week or 16120 miles per year
+- Car 1: 695 Gallons/year; car 2: 760 Gallons/year
+- Prize of a gallon is about USD 2
+```{r }
+  c(695*2,760*2,(760-695)*2)
+```
+- Cost of fuel car 1: USD 1390 and car 2: USD 1520 per year 
+- Car 1 saves you $130/year in fuel  
+
+
+
+
+
+
