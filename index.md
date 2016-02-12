@@ -74,22 +74,24 @@ knit        : slidify::knit2slides
 --- .class #id 
 
 ## Example of usefulness
-- Suppose you want to buy a car with high MPG. 
-- You have the choice between car #1 (2000 lb) with 6 cylinders and automatic transmission and car #2 with manual transmission, 8 cylinders and a mass of 2100 lb.
-- Using the app: MPG car #1 has MPG of 23.20 and MPG car #2 is 21.20
-- You drive 310 miles per week or 16120 miles per year
-- Car 1: 695 Gallons/year; car 2: 760 Gallons/year
-- Prize of a gallon is about USD 2
+- Suppose you want to buy a car with high MPG and you have the choice between car #1: 2000 lb, 6 cylinders and automatic transmission and car #2: manual transmission, 8 cylinders and 2100 lb.
 
 ```r
-  c(695*2,760*2,(760-695)*2)
+MPGcar1 <- fit$coefficients[1] + fit$coefficients[2] * 0 + fit$coefficients[3] * 
+    1 + fit$coefficients[4] * 0 + fit$coefficients[5] * 2
+MPGcar2 <- fit$coefficients[1] + fit$coefficients[2] * 1 + fit$coefficients[3] * 
+    0 + fit$coefficients[4] * 1 + fit$coefficients[5] * 2.1
+as.numeric(c(MPGcar1, MPGcar2))
 ```
 
 ```
-## [1] 1390 1520  130
+## [1] 23.19708 21.21042
 ```
-- Cost of fuel car 1: USD 1390 and car 2: USD 1520 per year 
-- Car 1 saves you $130/year in fuel  
+- MPG car #1 has MPG of 23.1970779 and MPG car #2 is 21.2104209
+- You drive 310 miles per week or 16120 miles per year and 1 gallon fuel is about USD 2
+- Cost of fuel car 1: USD 1390 and car 2: USD 1520 per year
+- Car 1 saves you $130/year in fuel! 
+ 
 
 
 
